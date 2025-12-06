@@ -1,0 +1,11 @@
+appId: com.medetech.mobile
+---
+- launchApp
+- tapOn: "Email"
+- inputText: "test@example.com"
+- tapOn: "Password"
+- inputText: "password123"
+- tapOn: "Login"
+- assertVisible: "Welcome"
+- tapOn: "Scan Medicine"
+- assertVisible: "Camera"
