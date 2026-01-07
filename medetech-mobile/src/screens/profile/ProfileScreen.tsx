@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Alert, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useColorScheme } from 'nativewind';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import storageService from '../../services/storageService';
 import { UserProfile } from '../../types';
 
 export default function ProfileScreen({ navigation }: any) {
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+  
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [allergies, setAllergies] = useState('');
   const [conditions, setConditions] = useState('');
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [username, setUsername] = useState('');
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     loadProfile();
@@ -78,33 +80,33 @@ export default function ProfileScreen({ navigation }: any) {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
-      <View className="px-6 py-4 flex-row items-center bg-white border-b border-gray-100">
+    <SafeAreaView className="flex-1 bg-gray-50 dark:bg-gray-900">
+      <View className="px-6 py-4 flex-row items-center bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
         <TouchableOpacity onPress={() => navigation.goBack()} className="mr-4">
           <Text className="text-2xl text-blue-600">←</Text>
         </TouchableOpacity>
-        <Text className="text-2xl font-bold text-gray-800">Profile</Text>
+        <Text className="text-2xl font-bold text-gray-800 dark:text-white">Profile</Text>
       </View>
 
       <ScrollView className="flex-1 px-6 py-6">
         {/* User Info Card */}
-        <View className="bg-white p-6 rounded-2xl shadow-sm mb-6 items-center">
-          <View className="w-20 h-20 bg-blue-100 rounded-full items-center justify-center mb-4">
+        <View className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm mb-6 items-center">
+          <View className="w-20 h-20 bg-blue-100 dark:bg-blue-900 rounded-full items-center justify-center mb-4">
             <Text className="text-4xl">👤</Text>
           </View>
-          <Text className="text-xl font-bold text-gray-800">{username}</Text>
-          <Text className="text-gray-500">Member</Text>
+          <Text className="text-xl font-bold text-gray-800 dark:text-white">{username}</Text>
+          <Text className="text-gray-500 dark:text-gray-400">Member</Text>
         </View>
 
         {/* Settings Section */}
         <View className="mb-6">
-          <Text className="text-lg font-bold text-gray-800 mb-3">Settings</Text>
-          <View className="bg-white rounded-xl overflow-hidden">
-            <View className="p-4 flex-row justify-between items-center border-b border-gray-100">
-              <Text className="text-gray-700 text-base">Dark Mode</Text>
+          <Text className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-3">Settings</Text>
+          <View className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden">
+            <View className="p-4 flex-row justify-between items-center border-b border-gray-100 dark:border-gray-700">
+              <Text className="text-gray-700 dark:text-gray-300 text-base">Dark Mode</Text>
               <Switch
-                value={isDarkMode}
-                onValueChange={setIsDarkMode}
+                value={colorScheme === 'dark'}
+                onValueChange={toggleColorScheme}
                 trackColor={{ false: '#767577', true: '#3B82F6' }}
               />
             </View>
@@ -112,7 +114,7 @@ export default function ProfileScreen({ navigation }: any) {
               className="p-4 flex-row justify-between items-center"
               onPress={() => Alert.alert('About', 'MEDetech v1.0.0\nDeveloped for DIP')}
             >
-              <Text className="text-gray-700 text-base">About App</Text>
+              <Text className="text-gray-700 dark:text-gray-300 text-base">About App</Text>
               <Text className="text-gray-400">›</Text>
             </TouchableOpacity>
           </View>
@@ -121,7 +123,7 @@ export default function ProfileScreen({ navigation }: any) {
         {/* Health Info Section */}
         <View className="mb-8">
           <View className="flex-row justify-between items-center mb-3">
-            <Text className="text-lg font-bold text-gray-800">Health Information</Text>
+            <Text className="text-lg font-bold text-gray-800 dark:text-gray-200">Health Information</Text>
             <TouchableOpacity onPress={() => setIsEditing(!isEditing)}>
               <Text className="text-blue-600 font-medium">
                 {isEditing ? 'Cancel' : 'Edit'}
@@ -129,7 +131,7 @@ export default function ProfileScreen({ navigation }: any) {
             </TouchableOpacity>
           </View>
 
-          <View className="bg-white p-4 rounded-xl">
+          <View className="bg-white dark:bg-gray-800 p-4 rounded-xl">
             <Input
               label="Date of Birth"
               value={dateOfBirth}
@@ -168,9 +170,9 @@ export default function ProfileScreen({ navigation }: any) {
 
         <TouchableOpacity
           onPress={handleLogout}
-          className="bg-red-50 p-4 rounded-xl items-center mb-8 border border-red-100"
+          className="bg-red-50 dark:bg-red-950 p-4 rounded-xl items-center mb-8 border border-red-100 dark:border-red-900"
         >
-          <Text className="text-red-600 font-bold text-lg">Logout</Text>
+          <Text className="text-red-600 dark:text-red-300 font-bold text-lg">Logout</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>

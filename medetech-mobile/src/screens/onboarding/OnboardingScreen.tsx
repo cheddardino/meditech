@@ -11,21 +11,21 @@ const SLIDES = [
     title: 'Scan Your Medicine',
     description: 'Instantly identify pills, capsules, and packaging using your camera.',
     icon: '📸',
-    color: 'bg-blue-100',
+    color: 'bg-blue-100 dark:bg-blue-900',
   },
   {
     id: '2',
     title: 'AI-Powered Insights',
     description: 'Get detailed information about dosage, usage, and side effects powered by Gemini AI.',
     icon: '🤖',
-    color: 'bg-purple-100',
+    color: 'bg-purple-100 dark:bg-purple-900',
   },
   {
     id: '3',
     title: 'Track Your Health',
     description: 'Keep a history of your scans and manage your health profile securely.',
     icon: '❤️',
-    color: 'bg-green-100',
+    color: 'bg-green-100 dark:bg-green-900',
   },
 ];
 
@@ -53,7 +53,7 @@ export default function OnboardingScreen({ navigation }: any) {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-white dark:bg-gray-900">
       <ScrollView
         ref={scrollViewRef}
         horizontal
@@ -68,10 +68,10 @@ export default function OnboardingScreen({ navigation }: any) {
             <View className={`w-64 h-64 rounded-full ${slide.color} items-center justify-center mb-12`}>
               <Text className="text-9xl">{slide.icon}</Text>
             </View>
-            <Text className="text-3xl font-bold text-gray-800 text-center mb-4">
+            <Text className="text-3xl font-bold text-gray-800 dark:text-white text-center mb-4">
               {slide.title}
             </Text>
-            <Text className="text-gray-500 text-center text-lg leading-7">
+            <Text className="text-gray-500 dark:text-gray-400 text-center text-lg leading-7">
               {slide.description}
             </Text>
           </View>
@@ -86,7 +86,7 @@ export default function OnboardingScreen({ navigation }: any) {
             <View
               key={index}
               className={`h-2 rounded-full mx-1 ${
-                index === activeIndex ? 'w-8 bg-blue-600' : 'w-2 bg-gray-300'
+                index === activeIndex ? 'w-8 bg-blue-600' : 'w-2 bg-gray-300 dark:bg-gray-700'
               }`}
             />
           ))}

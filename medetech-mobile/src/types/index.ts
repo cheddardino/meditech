@@ -29,6 +29,7 @@ export interface MedicineInfo {
   disclaimer: string;
   analysis_notes?: string;
   confidence?: 'high' | 'medium' | 'low';
+  sources?: string[];
 }
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';

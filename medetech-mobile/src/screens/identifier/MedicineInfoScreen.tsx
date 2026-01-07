@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RouteProp } from '@react-navigation/native';
 import InfoSection from '../../components/medicine/InfoSection';
+import ConfidenceMeter from '../../components/common/ConfidenceMeter';
 import { useTextToSpeech } from '../../hooks/useTextToSpeech';
 import { RootStackParamList } from '../../types';
 import { DISCLAIMER } from '../../constants';
@@ -38,6 +39,16 @@ export default function MedicineInfoScreen({ route, navigation }: Props) {
     );
   };
 
+  // Helper to map string confidence to number
+  const getConfidenceScore = (conf?: string) => {
+    switch (conf) {
+      case 'high': return 0.95;
+      case 'medium': return 0.70;
+      case 'low': return 0.40;
+      default: return 0.0;
+    }
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView className="flex-1 px-6 py-4">
@@ -54,20 +65,12 @@ export default function MedicineInfoScreen({ route, navigation }: Props) {
                 </Text>
               )}
             </View>
-            {medicineData.confidence && (
-              <View className={`px-3 py-1 rounded-full ${
-                medicineData.confidence === 'high' ? 'bg-green-100' :
-                medicineData.confidence === 'medium' ? 'bg-yellow-100' : 'bg-red-100'
-              }`}>
-                <Text className={`text-xs font-bold ${
-                  medicineData.confidence === 'high' ? 'text-green-800' :
-                  medicineData.confidence === 'medium' ? 'text-yellow-800' : 'text-red-800'
-                }`}>
-                  {medicineData.confidence.toUpperCase()}
-                </Text>
-              </View>
-            )}
           </View>
+          
+          {/* Confidence Meter */}
+          {medicineData.confidence && (
+            <ConfidenceMeter score={getConfidenceScore(medicineData.confidence)} />
+          )}
         </View>
 
         {/* Disclaimer */}

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, View } from 'react-native';
+import { useColorScheme } from 'nativewind';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 // Import screens
@@ -22,6 +23,7 @@ import storageService from '../services/storageService';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
+  const { colorScheme } = useColorScheme();
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isFirstLaunch, setIsFirstLaunch] = useState(false);
@@ -56,11 +58,11 @@ export default function AppNavigator() {
 
   return (
     <ErrorBoundary>
-      <NavigationContainer>
+      <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack.Navigator
           initialRouteName={isFirstLaunch ? 'Onboarding' : (isLoggedIn ? 'Dashboard' : 'Login')}
           screenOptions={{
-            headerStyle: { backgroundColor: '#3B82F6' },
+            headerStyle: { backgroundColor: colorScheme === 'dark' ? '#1F2937' : '#3B82F6' },
             headerTintColor: '#fff',
             headerTitleStyle: { fontWeight: 'bold' },
           }}

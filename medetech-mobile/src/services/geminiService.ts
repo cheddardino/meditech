@@ -140,7 +140,7 @@ class GeminiService {
       // Enable Google Search Tool for Grounding
       const model = genAI.getGenerativeModel({ 
         model: MODEL_NAME,
-        tools: [{ googleSearch: {} }] 
+        tools: [{ googleSearch: {} } as any] 
       });
       
       const result = await model.generateContent([

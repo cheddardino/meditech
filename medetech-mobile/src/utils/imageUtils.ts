@@ -4,7 +4,7 @@ export const convertImageToBase64 = async (uri: string): Promise<string> => {
   try {
     console.log('Converting image at URI:', uri);
     const base64 = await FileSystem.readAsStringAsync(uri, {
-      encoding: FileSystem.EncodingType.Base64,
+      encoding: 'base64',
     });
     return base64;
   } catch (error: any) {
